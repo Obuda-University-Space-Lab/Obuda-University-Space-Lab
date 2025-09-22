@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Suit Evolution Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            overflow-x: auto;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #ff6b35, #f7931e, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(90deg); }
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 50px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #00d4ff, #ff6b35, #f7931e, #00d4ff);
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 55%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #ff6b35);
+            transform: translateX(-50%);
+            border: 4px solid #1a1a2e;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            z-index: 10;
+        }
+
+        .era-marker {
+            width: 40px !important;
+            height: 40px !important;
+            background: linear-gradient(45deg, #f7931e, #ff6b35) !important;
+            box-shadow: 0 0 30px rgba(247, 147, 30, 0.8) !important;
+        }
+
+        .year {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .era-title {
+            font-size: 2.2rem !important;
+            background: linear-gradient(45deg, #f7931e, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .suit-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff6b35;
+            margin-bottom: 8px;
+        }
+
+        .country {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: #c0c0c0;
+            font-size: 0.95rem;
+        }
+
+        .features li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #f7931e;
+            font-weight: bold;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(247, 147, 30, 0.2);
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: #f7931e;
+            font-weight: 500;
+        }
+
+        .future {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(247, 147, 30, 0.1)) !important;
+            border: 2px solid rgba(0, 212, 255, 0.3) !important;
+        }
+
+        .legend {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+
+        .legend h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, #00d4ff, #ff6b35);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .legend {
+                position: relative;
+                margin: 20px;
+                top: auto;
+                right: auto;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ff6b35;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="header">
+        <h1>SPACE SUIT EVOLUTION</h1>
+        <p>From Early Prototypes to Next-Generation EVA Systems</p>
+    </div>
+
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(45deg, #00d4ff, #ff6b35);"></div>
+            <span>Major Milestone</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(45deg, #f7931e, #ff6b35);"></div>
+            <span>Era Transition</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: linear-gradient(45deg, #00d4ff, #f7931e);"></div>
+            <span>Future Technology</span>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+
+        <!-- Early Prototypes -->
+        <div class="timeline-item" style="animation-delay: 0.1s;">
+            <div class="timeline-marker era-marker"></div>
+            <div class="timeline-content">
+                <div class="year era-title">Early Prototypes</div>
+                <div class="description">The dawn of pressure suit technology, driven by high-altitude aviation needs and stratospheric exploration.</div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 0.2s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1930s</div>
+                <div class="suit-name">CH-1 & CH-3</div>
+                <div class="country">Soviet Union</div>
+                <div class="description">Pioneer pressure suits marking the beginning of human high-altitude protection systems.</div>
+                <ul class="features">
+                    <li>CH-1: Limited mobility pressure suit for early experiments</li>
+                    <li>CH-3: More advanced design tested at stratospheric altitudes</li>
+                    <li>Foundation technology for future space applications</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 0.3s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1934</div>
+                <div class="suit-name">Wiley Post Pressure Suit</div>
+                <div class="country">USA</div>
+                <div class="description">First practical pressure suit for high-altitude aviation, paving the way for space suit development.</div>
+                <ul class="features">
+                    <li>Enabled flights above 40,000 feet</li>
+                    <li>Rubber construction with fabric covering</li>
+                    <li>Pioneered life support integration</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Space Race Era I -->
+        <div class="timeline-item" style="animation-delay: 0.4s;">
+            <div class="timeline-marker era-marker"></div>
+            <div class="timeline-content">
+                <div class="year era-title">Space Race Era I</div>
+                <div class="description">The beginning of human spaceflight and the first generation of true space suits.</div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 0.5s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1961</div>
+                <div class="suit-name">SK-1</div>
+                <div class="country">Soviet Union</div>
+                <div class="description">The first true space suit worn by Yuri Gagarin on Vostok 1, marking humanity's entry into space.</div>
+                <ul class="features">
+                    <li>Derived from aviation pressure suits</li>
+                    <li>Provided cabin depressurization protection</li>
+                    <li>Orange color for visibility during recovery</li>
+                    <li>Integrated with ejection seat system</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">First human in space</div>
+                    <div class="stat">Emergency protection</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 0.6s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1960s</div>
+                <div class="suit-name">Shuguang Suit</div>
+                <div class="country">China</div>
+                <div class="description">Developed for the aborted Project 714 crewed mission, showcasing early Chinese space suit technology.</div>
+                <ul class="features">
+                    <li>High-resistance polyester fabric construction</li>
+                    <li>Designed for cabin use and potential spacewalks</li>
+                    <li>Part of China's first manned space program attempt</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 0.7s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1962-1963</div>
+                <div class="suit-name">Mercury Suits</div>
+                <div class="country">USA</div>
+                <div class="description">America's first generation of space suits, adapted from high-altitude aviation gear.</div>
+                <ul class="features">
+                    <li>Modified from Navy Mark IV pressure suits</li>
+                    <li>Bladder layers for pressure stability</li>
+                    <li>Aluminum-coated outer layer for thermal protection</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">6 crewed flights</div>
+                    <div class="stat">Pressure protection</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 0.8s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1965-1966</div>
+                <div class="suit-name">Gemini Suits</div>
+                <div class="country">USA</div>
+                <div class="description">Advanced suits enabling America's first spacewalks and long-duration orbital missions.</div>
+                <ul class="features">
+                    <li>First EVA capability for American astronauts</li>
+                    <li>Improved mobility and flexibility</li>
+                    <li>Enhanced thermal protection</li>
+                    <li>Chest-mounted life support controls</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">First US EVA</div>
+                    <div class="stat">14-day missions</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 0.9s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1969</div>
+                <div class="suit-name">Apollo A7L</div>
+                <div class="country">USA</div>
+                <div class="description">Iconic suit that enabled lunar EVAs and the historic Moon landings.</div>
+                <ul class="features">
+                    <li>Radiation shielding for lunar environment</li>
+                    <li>Thermal protection system</li>
+                    <li>Integrated Portable Life Support System (PLSS)</li>
+                    <li>Multi-layer construction with micrometeorite protection</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">Moon landing</div>
+                    <div class="stat">8-hour EVAs</div>
+                    <div class="stat">PLSS backpack</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Station Operations Era -->
+        <div class="timeline-item" style="animation-delay: 1.0s;">
+            <div class="timeline-marker era-marker"></div>
+            <div class="timeline-content">
+                <div class="year era-title">Station Operations & Semi-Rigid Suits</div>
+                <div class="description">Evolution toward long-duration missions and reusable suit systems.</div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 1.1s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1970s</div>
+                <div class="suit-name">Modular EVA Systems</div>
+                <div class="country">Multiple Nations</div>
+                <div class="description">Development of modular, maintainable EVA systems for long-duration orbital missions.</div>
+                <ul class="features">
+                    <li>Interchangeable components</li>
+                    <li>Extended operational duration</li>
+                    <li>Improved maintenance capabilities</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 1.2s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1977</div>
+                <div class="suit-name">Orlan-D</div>
+                <div class="country">Soviet Union</div>
+                <div class="description">Revolutionary rear-entry semi-rigid architecture that simplified donning procedures.</div>
+                <ul class="features">
+                    <li>Rear-entry design for easier donning</li>
+                    <li>Semi-rigid torso construction</li>
+                    <li>Extended operational duration</li>
+                    <li>Simplified pre-EVA procedures</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">Rear-entry</div>
+                    <div class="stat">Semi-rigid</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 1.3s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1980s</div>
+                <div class="suit-name">Project 863 Suit</div>
+                <div class="country">China</div>
+                <div class="description">Chinese development of advanced EVA suit technology as part of strategic space initiatives.</div>
+                <ul class="features">
+                    <li>Part of China's 863 high-tech development program</li>
+                    <li>Advanced materials and construction</li>
+                    <li>Independent Chinese space suit capability</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 1.4s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">2000s</div>
+                <div class="suit-name">Orlan-M</div>
+                <div class="country">Russia</div>
+                <div class="description">Enhanced version emphasizing robustness and repeated use for ISS operations.</div>
+                <ul class="features">
+                    <li>Improved reliability for repeated use</li>
+                    <li>Enhanced thermal control</li>
+                    <li>Upgraded life support systems</li>
+                    <li>Compatible with ISS operations</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">Multi-use design</div>
+                    <div class="stat">ISS compatible</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shuttle and ISS Era -->
+        <div class="timeline-item" style="animation-delay: 1.5s;">
+            <div class="timeline-marker era-marker"></div>
+            <div class="timeline-content">
+                <div class="year era-title">Shuttle and ISS Era</div>
+                <div class="description">Modular, maintainable systems designed for decades of space station operations.</div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 1.6s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">1982-2011</div>
+                <div class="suit-name">Extravehicular Mobility Unit (EMU)</div>
+                <div class="country">USA</div>
+                <div class="description">NASA's workhorse EVA suit system with replaceable components for enhanced reliability.</div>
+                <ul class="features">
+                    <li>Modular torso, limbs, and life support</li>
+                    <li>Multi-decade operational lifespan</li>
+                    <li>Enhanced reliability through component replacement</li>
+                    <li>Shuttle and ISS compatible</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">30+ years service</div>
+                    <div class="stat">Modular design</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 1.7s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">2008</div>
+                <div class="suit-name">Feitian Space Suit (Gen 1)</div>
+                <div class="country">China</div>
+                <div class="description">China's first domestically produced EVA suit, marking their entry into independent spacewalk capability.</div>
+                <ul class="features">
+                    <li>First domestically produced Chinese EVA suit</li>
+                    <li>Mass of 120 kg including life support</li>
+                    <li>Maximum operational duration of 4 hours</li>
+                    <li>Designed for at least 5 uses</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">120 kg mass</div>
+                    <div class="stat">4-hour duration</div>
+                    <div class="stat">5 uses minimum</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay: 1.8s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">2010s</div>
+                <div class="suit-name">Feitian Space Suit (Gen 2)</div>
+                <div class="country">China</div>
+                <div class="description">Improved second-generation Feitian with extended duration and increased reusability.</div>
+                <ul class="features">
+                    <li>Extended operational duration to 8 hours</li>
+                    <li>Increased minimum uses to 15</li>
+                    <li>Enhanced reliability and performance</li>
+                    <li>Advanced materials and construction</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">8-hour duration</div>
+                    <div class="stat">15 uses minimum</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next-Generation Era -->
+        <div class="timeline-item" style="animation-delay: 1.9s;">
+            <div class="timeline-marker era-marker"></div>
+            <div class="timeline-content">
+                <div class="year era-title">Space Race Era II - Next-Generation EVA Systems</div>
+                <div class="description">Advanced suits designed for lunar surface operations and deep space exploration.</div>
+            </div>
+        </div>
+
+        <div class="timeline-item future" style="animation-delay: 2.0s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">2030 (Planned)</div>
+                <div class="suit-name">Chinese Lunar Space Suit</div>
+                <div class="country">China</div>
+                <div class="description">Next-generation suit designed for China's anticipated 2030 crewed moon landing mission.</div>
+                <ul class="features">
+                    <li>Panoramic, anti-glare visor design</li>
+                    <li>Integrated control console</li>
+                    <li>Dual-focus cameras embedded in helmet</li>
+                    <li>Optimized for lunar surface operations</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">Lunar optimized</div>
+                    <div class="stat">Dual cameras</div>
+                    <div class="stat">2030 mission</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item future" style="animation-delay: 2.1s;">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <div class="year">2025+ (Planned)</div>
+                <div class="suit-name">AxEMU (Axiom Extravehicular Mobility Unit)</div>
+                <div class="country">USA</div>
+                <div class="description">NASA's Artemis program suit developed by Axiom Space and Prada, optimized for lunar surface operations.</div>
+                <ul class="features">
+                    <li>Collaboration between Axiom Space and Prada</li>
+                    <li>Optimized for lunar surface operations</li>
+                    <li>Significantly increased mobility</li>
+                    <li>Next-generation life support systems</li>
+                </ul>
+                <div class="stats">
+                    <div class="stat">Artemis program</div>
+                    <div class="stat">Enhanced mobility</div>
+                    <div class="stat">Luxury design</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        // Animate timeline items on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Progress bar
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Modal functionality
+        const modal = document.getElementById('modal');
+        const closeModal = document.querySelector('.close');
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Add click handlers for detailed view (optional enhancement)
+        document.querySelectorAll('.timeline-content').forEach(content => {
+            content.addEventListener('click', () => {
+                // Could implement detailed modal view here
+                content.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    content.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+
+        // Smooth scrolling for better UX
+        document.addEventListener('DOMContentLoaded', () => {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

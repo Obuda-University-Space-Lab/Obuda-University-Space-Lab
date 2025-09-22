@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceLab - Links</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .profile-bio {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .link-button {
+            display: block;
+            padding: 18px 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .link-button:active {
+            transform: translateY(0);
+        }
+
+        .link-button.github {
+            background: linear-gradient(45deg, #333, #555);
+        }
+
+        .link-button.linkedin {
+            background: linear-gradient(45deg, #0077b5, #00a0dc);
+        }
+
+        .link-button.twitter {
+            background: linear-gradient(45deg, #1da1f2, #0d8bd9);
+        }
+
+        .link-button.website {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+        }
+
+        .link-button.email {
+            background: linear-gradient(45deg, #48cae4, #023e8a);
+        }
+
+        .link-button.portfolio {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .profile-name {
+                font-size: 24px;
+            }
+            
+            .link-button {
+                padding: 16px 18px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-image">
+            <img src="https://spacelab.uni-obuda.hu/wp-content/uploads/2024/09/cropped-Space-Lab-logo_color-2048x2009.png" alt="Space Laab logo">
+        </div>
+        <h1 class="profile-name">SpaceLab - OE</h1>
+        <p class="profile-bio">Welcome to our project Repository! Explore our projects, connect with us, and discover what we're building.</p>
+
+        <!-- Links Section -->
+        <div class="links-container">
+            <a href="https://github.com/Obuda-University-Space-Lab" class="link-button github" target="_blank">
+                🚀 GitHub Repository
+            </a>
+            
+            <a href="https://spacelab.uni-obuda.hu" class="link-button website" target="_blank">
+                🌐 Official Website
+            </a>
+            
+            <a href="https://www.linkedin.com/company/óbuda-university-space-lab" class="link-button linkedin" target="_blank">
+                💼 LinkedIn
+            </a>
+            
+            <a href="https://x.com/OU_SpaceLab" class="link-button twitter" target="_blank">
+                🐦 Twitter
+            </a>
+            
+            <a href="https://spacelab.uni-obuda.hu/contact" class="link-button email">
+                📧 Contact Us
+            </a>
+            
+            <a href="https://spacelab.uni-obuda.hu/community" class="link-button portfolio" target="_blank">
+                📁 Portfolio
+            </a>
+        </div>
+
+        <!-- Social Icons (Alternative smaller section) -->
+        <div class="social-icons">
+            <a href="https://github.com/Obuda-University-Space-Lab" class="social-icon" target="_blank">📱</a>
+            <a href="https://www.youtube.com/@%C3%93budaUniversity-SpaceLab" class="social-icon" target="_blank">📺</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Made with ❤️ by SpaceLab Team
+        </div>
+    </div>
+</body>
+</html>
